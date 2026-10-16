@@ -1,0 +1,26 @@
+{
+  "name": "dark-adam-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dark Adam portfolio with Express, Firebase Authentication and Cloud Firestore",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "dev": "node --env-file-if-exists=.env --watch server/index.js",
+    "test": "node --test",
+    "check": "node scripts/check.js",
+    "seed": "node --env-file-if-exists=.env scripts/seed.js",
+    "admin:grant": "node --env-file-if-exists=.env scripts/admin.js grant",
+    "admin:revoke": "node --env-file-if-exists=.env scripts/admin.js revoke"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.2.1",
+    "firebase-admin": "^14.5.0",
+    "helmet": "^8.1.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": { "supertest": "^7.2.2" }
+}

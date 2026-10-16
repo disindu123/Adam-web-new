@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#00ff9c"><title>Dark Adam | Control center</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/system.css">
+  <script type="module" src="/assets/admin.js"></script>
+</head>
+<body class="admin-body">
+  <aside class="sidebar">
+    <a href="/admin/" class="brand">DARK<span>ADAM</span><small>CONTROL CENTER / 01</small></a>
+    <nav class="admin-nav" aria-label="Admin navigation">
+      <button type="button" data-view="overview" class="nav-item active"><span aria-hidden="true">◈</span> Overview</button>
+      <button type="button" data-view="messages" class="nav-item"><span aria-hidden="true">▤</span> Messages <span id="unreadBadge" class="nav-count">0</span></button>
+      <button type="button" data-view="projects" class="nav-item"><span aria-hidden="true">⌘</span> Projects</button>
+      <button type="button" data-view="maintenance" class="nav-item"><span aria-hidden="true">⚙</span> Maintenance</button>
+    </nav>
+    <div class="sidebar-footer"><span class="online-dot"></span> SESSION VERIFIED<p id="sessionEmail" class="muted"></p><button type="button" id="signOut" class="text-button">SIGN OUT ↗</button></div>
+  </aside>
+  <main class="admin-main">
+    <header class="admin-header"><div><p class="eyebrow">PORTFOLIO OPERATIONS</p><h1 id="pageHeading">Overview</h1></div><div class="header-actions"><span id="siteBadge" class="badge">CHECKING SITE</span><a href="/?preview=1" target="_blank" rel="noopener" class="button">VIEW SITE ↗</a><button type="button" class="button icon-button" id="refresh" aria-label="Refresh data">↻</button></div></header>
+    <p id="globalStatus" role="status" aria-live="polite" class="global-status"></p>
+    <section id="view-overview" class="admin-view" aria-label="Overview">
+      <div class="intro-panel"><div><p class="eyebrow">WELCOME BACK, ADAM</p><h2>Your work.<br>Your <span class="accent">command.</span></h2><p class="muted">Everything you need to keep your portfolio up to date.</p></div><div class="command-mark" aria-hidden="true">&gt;_</div></div>
+      <div class="stats-grid">
+        <div class="stat-panel"><span class="eyebrow">ALL PROJECTS</span><strong id="statProjects">—</strong><span class="muted">Published + drafts</span></div>
+        <div class="stat-panel"><span class="eyebrow">PUBLISHED</span><strong id="statPublished">—</strong><span class="muted">Visible on your site</span></div>
+        <div class="stat-panel"><span class="eyebrow">MESSAGES</span><strong id="statMessages">—</strong><span class="muted">All received messages</span></div>
+        <div class="stat-panel"><span class="eyebrow">UNREAD</span><strong id="statUnread">—</strong><span class="muted">Waiting for your attention</span></div>
+      </div>
+      <div class="panel"><div class="panel-heading"><h2>Quick actions</h2><span class="muted">NEXT COMMAND</span></div><div class="quick-actions"><button type="button" class="button primary" id="quickAddProject">+ ADD PROJECT</button><button type="button" class="button" data-open-view="messages">OPEN INBOX ↗</button><button type="button" class="button" data-open-view="maintenance">SITE SETTINGS ↗</button></div></div>
+    </section>
+    <section id="view-messages" class="admin-view" aria-label="Message inbox" hidden>
+      <div class="panel"><div class="panel-heading"><div><h2>Incoming transmissions</h2><p class="muted">Contact form messages. Search and filters apply to loaded messages.</p></div></div>
+      <div class="toolbar"><input type="search" id="messageSearch" placeholder="Search loaded messages" aria-label="Search loaded messages"><select id="messageFilter" aria-label="Filter messages"><option value="all">All messages</option><option value="unread">Unread</option><option value="read">Read</option><option value="replied">Replied</option><option value="archived">Archived</option></select></div>
+      <div id="messagesList" class="message-list" aria-live="polite"><p class="empty-state">Loading inbox...</p></div><button type="button" id="loadMore" class="button full" hidden>LOAD MORE MESSAGES</button></div>
+    </section>
+    <section id="view-projects" class="admin-view" aria-label="Project management" hidden>
+      <div class="section-toolbar"><div><h2>Project directory</h2><p class="muted">Create, edit, publish and arrange your work.</p></div><button type="button" class="button primary" id="addProject">+ ADD PROJECT</button></div>
+      <div id="projectList" class="admin-project-grid" aria-live="polite"><p class="empty-state">Loading projects...</p></div>
+    </section>
+    <section id="view-maintenance" class="admin-view" aria-label="Maintenance settings" hidden>
+      <div class="panel settings-panel"><p class="eyebrow">AVAILABILITY CONTROL</p><h2>Give your site<br>some <span class="accent">downtime.</span></h2><p class="muted">Show a dedicated maintenance page while you work. You can still sign in and manage everything here.</p>
+      <form id="settingsForm">
+        <label class="toggle-row" for="maintenanceEnabled"><span><strong>Maintenance mode</strong><small>Replace the public portfolio with the maintenance page.</small></span><input type="checkbox" id="maintenanceEnabled" role="switch"><span class="toggle-track" aria-hidden="true"></span></label>
+        <label for="maintenanceTitle">Page heading</label><input id="maintenanceTitle" required maxlength="100">
+        <label for="maintenanceMessage">Visitor message</label><textarea id="maintenanceMessage" required maxlength="1000" rows="5"></textarea>
+        <label for="maintenanceUntil">Expected return (optional, your local time)</label><input id="maintenanceUntil" type="datetime-local"><p class="field-help">Shown to visitors as an estimate. Maintenance stays on until you disable it.</p>
+        <div class="form-actions"><button type="submit" class="button primary" id="saveSettings">SAVE SETTINGS</button><a class="button" href="/" target="_blank" rel="noopener">OPEN PUBLIC PAGE ↗</a></div>
+        <p id="settingsStatus" class="form-status" role="status" aria-live="polite"></p>
+      </form></div>
+    </section>
+    <footer class="admin-footer">DARK ADAM <span>PRIVATE OPERATIONS CONSOLE</span></footer>
+  </main>
+  <dialog id="projectDialog" class="modal">
+    <form id="projectForm">
+      <div class="modal-heading"><div><p class="eyebrow">PROJECT EDITOR</p><h2 id="projectDialogTitle">Add project</h2></div><button type="button" class="close-button" data-close="projectDialog" aria-label="Close editor">×</button></div>
+      <input type="hidden" id="projectId">
+      <label for="projectTitle">Project title</label><input id="projectTitle" required maxlength="100">
+      <label for="projectDescription">Description</label><textarea id="projectDescription" required maxlength="1600" rows="4"></textarea>
+      <div class="form-grid"><div><label for="projectCategory">Category</label><select id="projectCategory"><option value="web">Web app</option><option value="security">Security</option><option value="tool">Tool</option></select></div><div><label for="projectOrder">Display order</label><input id="projectOrder" type="number" value="0" min="0" max="9999" step="1" required></div></div>
+      <label for="projectTechnologies">Technologies (separate with commas)</label><input id="projectTechnologies" maxlength="430" placeholder="React, Node.js, Firebase"><p class="field-help">Up to 12 technologies, 35 characters each.</p>
+      <label for="projectImage">Image URL (optional)</label><input id="projectImage" type="url" maxlength="2048" placeholder="https://example.com/project.jpg"><p class="field-help">Use a direct HTTPS image link. Leave empty for the Dark Adam cover.</p>
+      <div class="form-grid"><div><label for="projectLive">Live website URL (optional)</label><input id="projectLive" type="url" maxlength="2048" placeholder="https://..."></div><div><label for="projectCode">Source code URL (optional)</label><input id="projectCode" type="url" maxlength="2048" placeholder="https://github.com/..."></div></div>
+      <div class="checkboxes"><label class="check-label"><input type="checkbox" id="projectPublished"> Published on portfolio</label><label class="check-label"><input type="checkbox" id="projectFeatured"> Featured project</label></div>
+      <p class="form-status" id="projectStatus" role="status" aria-live="polite"></p>
+      <div class="form-actions"><button type="submit" id="saveProject" class="button primary">SAVE PROJECT</button><button type="button" class="button" data-close="projectDialog">CANCEL</button></div>
+    </form>
+  </dialog>
+  <dialog id="messageDialog" class="modal">
+    <div class="modal-heading"><div><p class="eyebrow">MESSAGE DETAILS</p><h2 id="messageSubject"></h2></div><button type="button" class="close-button" data-close="messageDialog" aria-label="Close message">×</button></div>
+    <p id="messageSender" class="muted"></p><p id="messageDate" class="muted"></p><div id="messageBody" class="message-body"></div>
+    <div class="form-actions"><a id="replyLink" class="button primary">REPLY IN EMAIL ↗</a><button type="button" class="button" id="markReplied">MARK REPLIED</button><button type="button" class="button" id="archiveMessage">ARCHIVE</button><button type="button" class="button danger" id="deleteMessage">DELETE</button></div><p class="field-help">Reply opens your email app. Mark as replied after sending.</p>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    { "collectionGroup": "messages", "fieldPath": "message", "indexes": [] },
+    { "collectionGroup": "messages", "fieldPath": "email", "indexes": [] },
+    { "collectionGroup": "messages", "fieldPath": "name", "indexes": [] },
+    { "collectionGroup": "messages", "fieldPath": "subject", "indexes": [] },
+    { "collectionGroup": "projects", "fieldPath": "description", "indexes": [] }
+  ]
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "phantom",
+    "title": "Phantom Dashboard",
+    "description": "Real-time analytics dashboard with threat detection visualization, WebSocket live feeds, and encrypted data streams.",
+    "category": "web",
+    "technologies": [
+      "React",
+      "D3.js",
+      "WebSocket",
+      "AES-256"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-phantom/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": true,
+    "order": 0
+  },
+  {
+    "id": "sentinel",
+    "title": "Sentinel Scanner",
+    "description": "Automated vulnerability scanner with OWASP Top 10 coverage, PDF report generation, and CI/CD integration hooks.",
+    "category": "security",
+    "technologies": [
+      "Python",
+      "Nmap",
+      "OWASP",
+      "Docker"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-sentinel/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": false,
+    "order": 1
+  },
+  {
+    "id": "ciphervault",
+    "title": "CipherVault",
+    "description": "End-to-end encrypted password manager with zero-knowledge architecture, biometric unlock, and cross-platform sync.",
+    "category": "tool",
+    "technologies": [
+      "Rust",
+      "WebCrypto",
+      "IndexedDB",
+      "PWA"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-cipher/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": false,
+    "order": 2
+  },
+  {
+    "id": "neuralforge",
+    "title": "NeuralForge",
+    "description": "Browser-based neural network playground with real-time training visualization, layer editor, and export to ONNX format.",
+    "category": "web",
+    "technologies": [
+      "Next.js",
+      "TensorFlow.js",
+      "WebGL",
+      "WASM"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-neural/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": false,
+    "order": 3
+  },
+  {
+    "id": "honeytrap",
+    "title": "Honeytrap",
+    "description": "High-interaction honeypot system with automated attacker profiling, geo-mapping, and real-time alerting via Telegram.",
+    "category": "security",
+    "technologies": [
+      "Go",
+      "Docker",
+      "Elasticsearch",
+      "Leaflet"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-honeypot/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": false,
+    "order": 4
+  },
+  {
+    "id": "packetforge",
+    "title": "PacketForge",
+    "description": "Network packet crafting and injection tool with protocol dissection, capture replay, and rule-based traffic manipulation.",
+    "category": "tool",
+    "technologies": [
+      "C",
+      "libpcap",
+      "ncurses",
+      "Linux"
+    ],
+    "imageUrl": "https://picsum.photos/seed/proj-packman/700/400.jpg",
+    "liveUrl": "",
+    "codeUrl": "",
+    "published": true,
+    "featured": false,
+    "order": 5
+  }
+]

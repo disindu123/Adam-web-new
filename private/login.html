@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#00ff9c">
+  <title>Dark Adam | Secure access</title><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/system.css"><script type="module" src="/assets/login.js"></script>
+</head>
+<body class="login-body">
+  <main class="login-card">
+    <div class="terminal-bar"><span class="terminal-dots" aria-hidden="true">● ● ●</span><span>dark_adam.sec</span><span class="online-dot" aria-hidden="true"></span></div>
+    <div class="login-content">
+      <p class="eyebrow">DARK ADAM // PRIVATE CONSOLE</p>
+      <h1>CONTROL<br><span class="accent">ACCESS</span></h1>
+      <p class="muted">Sign in to manage your portfolio.</p>
+      <form id="signInForm">
+        <label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="you@example.com">
+        <label for="password">Password</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="current-password" required maxlength="256"><button id="togglePassword" type="button" class="text-button" aria-label="Show password" aria-pressed="false">SHOW</button></div>
+        <button class="button primary full" type="submit" id="signInButton">AUTHENTICATE <span aria-hidden="true">↗</span></button>
+        <p id="loginStatus" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <a class="muted back-link" href="/">← Return to portfolio</a>
+    </div>
+    <div class="login-footer">AUTHORIZED ACCESS ONLY</div>
+  </main>
+</body>
+</html>

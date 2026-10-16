@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+.env.*
+credentials
+*service-account*.json
+*serviceAccount*.json
+firebase-credentials*.json
+test
+coverage
+*-debug.log*

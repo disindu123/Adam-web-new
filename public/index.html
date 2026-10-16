@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/favicon.svg">
+    <link rel="shortcut icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dark Adam — full-stack development, cybersecurity and immersive digital experiences.">
+    <meta name="theme-color" content="#00ff9c">
+    <title>DARK ADAM | PORTFOLIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/portfolio.css">
+</head>
+<body>
+    <noscript><p style="position:relative;z-index:10001;padding:20px;background:#020a05">Please enable JavaScript for interactive projects and the contact form.</p></noscript>
+    <!-- Background layers -->
+    <canvas id="matrix" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="screen-flash green" id="flashGreen" aria-hidden="true"></div>
+    <div class="screen-flash red" id="flashRed" aria-hidden="true"></div>
+
+    <!-- Custom cursor -->
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <!-- ===================== PORTFOLIO ===================== -->
+    <a class="skip-link" href="#hero">Skip to content</a>
+    <main class="portfolio" id="portfolio">
+        <!-- Nav -->
+        <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+            <a href="#hero" class="nav-logo">DARK<span>ADAM</span></a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="nav-hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-controls="mobileNav" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+        <div class="nav-mobile" id="mobileNav">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- Hero -->
+        <section id="hero">
+            <div class="hero-deco" aria-hidden="true"></div>
+            <div class="hero-deco" aria-hidden="true"></div>
+            <div class="hero-deco" aria-hidden="true"></div>
+            <div class="section-inner" style="text-align:center;">
+                <div class="hero-tag reveal">// FULL-STACK DEVELOPER &amp; CYBERSECURITY ENTHUSIAST</div>
+                <h1 class="hero-name reveal reveal-d1">DARK <span class="outline">ADAM</span></h1>
+                <p class="hero-sub reveal reveal-d2">Building secure systems &amp; immersive digital experiences</p>
+                <a href="#projects" class="hero-cta reveal reveal-d3">VIEW PROJECTS <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                <div class="hero-stats reveal reveal-d4">
+                    <div class="hero-stat"><div class="hero-stat-num" id="projectCount" data-count="47">0</div><div class="hero-stat-label">Projects</div></div>
+                    <div class="hero-stat"><div class="hero-stat-num" data-count="3">0</div><div class="hero-stat-label">Years Exp</div></div>
+                    <div class="hero-stat"><div class="hero-stat-num" data-count="12">0</div><div class="hero-stat-label">Certifications</div></div>
+                    <div class="hero-stat"><div class="hero-stat-num" data-count="99">0</div><div class="hero-stat-label">Uptime %</div></div>
+                </div>
+            </div>
+            <div class="hero-scroll" aria-hidden="true"><span>Scroll</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+        </section>
+
+        <!-- About -->
+        <section id="about">
+            <div class="section-inner">
+                <div class="section-label reveal">01 // ABOUT</div>
+                <h2 class="section-title reveal reveal-d1">WHO IS <span class="accent">DARK ADAM</span></h2>
+                <div class="about-grid">
+                    <div class="about-image-wrap reveal reveal-d2">
+                        <div class="about-image">
+                            <img src="https://picsum.photos/seed/darkadam-portrait/600/750.jpg" alt="Dark Adam portrait" loading="lazy">
+                        </div>
+                        <div class="about-image-corner tl" aria-hidden="true"></div>
+                        <div class="about-image-corner tr" aria-hidden="true"></div>
+                        <div class="about-image-corner bl" aria-hidden="true"></div>
+                        <div class="about-image-corner br" aria-hidden="true"></div>
+                    </div>
+                    <div class="about-text">
+                        <p class="reveal reveal-d2">I'm a <strong>full-stack developer</strong> and <strong>cybersecurity enthusiast</strong> with a passion for building systems that are both powerful and impenetrable. My work lives at the intersection of <strong>clean code</strong>, <strong>brutal security</strong>, and <strong>striking design</strong>.</p>
+                        <p class="reveal reveal-d3">From penetration testing to crafting pixel-perfect interfaces, I approach every project with the mindset that security and aesthetics are not opposites — they're allies. Every line of code I write is a line of defense.</p>
+                        <p class="reveal reveal-d4">When I'm not coding, I'm reverse-engineering malware samples, contributing to open-source security tools, or exploring the depths of network protocols.</p>
+                        <div class="about-info reveal reveal-d4">
+                            <div class="about-info-item"><span class="label">Location</span><span class="value">Classified</span></div>
+                            <div class="about-info-item"><span class="label">Focus</span><span class="value">Full-Stack &amp; SecOps</span></div>
+                            <div class="about-info-item"><span class="label">Education</span><span class="value">CS / Self-Taught</span></div>
+                            <div class="about-info-item"><span class="label">Available</span><span class="value" style="color:var(--g);">Open to Projects</span></div>
+                        </div>
+                        <div class="about-terminal reveal reveal-d5">
+                            <div class="about-term-head"><div class="dots"><span style="background:#ff5f57;"></span><span style="background:#febc2e;"></span><span style="background:#28c840;"></span></div>whoami</div>
+                            <div class="about-term-body">
+                                <div><span class="prompt">$ </span><span class="cmd">whoami</span></div>
+                                <div class="out">dark_adam</div>
+                                <div><span class="prompt">$ </span><span class="cmd">cat /etc/motto</span></div>
+                                <div class="out">"Break things. Understand them. Build them better."</div>
+                                <div><span class="prompt">$ </span><span class="cmd">uptime</span></div>
+                                <div class="out">3 years, 47 projects, 0 regrets<span class="cb" style="font-size:0.6rem;">&#x2588;</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+            <div class="section-inner">
+                <div class="section-label reveal">02 // ARSENAL</div>
+                <h2 class="section-title reveal reveal-d1">TECH <span class="accent">STACK</span></h2>
+                <div class="skills-grid">
+                    <div class="skill-card reveal reveal-d1">
+                        <span class="skill-card-icon" aria-hidden="true">&lt;/&gt;</span>
+                        <div class="skill-card-title">Frontend</div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>React / Next.js</span><span>95%</span></div><div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>TypeScript</span><span>92%</span></div><div class="skill-bar"><div class="skill-bar-fill cyan" data-width="92"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Three.js / WebGL</span><span>85%</span></div><div class="skill-bar"><div class="skill-bar-fill orange" data-width="85"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Tailwind CSS</span><span>97%</span></div><div class="skill-bar"><div class="skill-bar-fill" data-width="97"></div></div></div>
+                    </div>
+                    <div class="skill-card reveal reveal-d2">
+                        <span class="skill-card-icon" aria-hidden="true">&#x2699;</span>
+                        <div class="skill-card-title">Backend</div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Node.js / Express</span><span>93%</span></div><div class="skill-bar"><div class="skill-bar-fill" data-width="93"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Python / FastAPI</span><span>88%</span></div><div class="skill-bar"><div class="skill-bar-fill cyan" data-width="88"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>PostgreSQL / MongoDB</span><span>90%</span></div><div class="skill-bar"><div class="skill-bar-fill purple" data-width="90"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Redis / GraphQL</span><span>82%</span></div><div class="skill-bar"><div class="skill-bar-fill orange" data-width="82"></div></div></div>
+                    </div>
+                    <div class="skill-card reveal reveal-d3">
+                        <span class="skill-card-icon" aria-hidden="true">&#x1F6E1;</span>
+                        <div class="skill-card-title">Security &amp; DevOps</div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Penetration Testing</span><span>90%</span></div><div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Docker / K8s</span><span>87%</span></div><div class="skill-bar"><div class="skill-bar-fill cyan" data-width="87"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>CI/CD Pipelines</span><span>91%</span></div><div class="skill-bar"><div class="skill-bar-fill purple" data-width="91"></div></div></div>
+                        <div class="skill-bar-wrap"><div class="skill-bar-label"><span>AWS / Cloudflare</span><span>86%</span></div><div class="skill-bar"><div class="skill-bar-fill orange" data-width="86"></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <section id="projects">
+            <div class="section-inner">
+                <div class="section-label reveal">03 // WORK</div>
+                <h2 class="section-title reveal reveal-d1">SELECTED <span class="accent">PROJECTS</span></h2>
+                <div class="projects-filter reveal reveal-d1">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web</button>
+                    <button class="filter-btn" data-filter="security">Security</button>
+                    <button class="filter-btn" data-filter="tool">Tools</button>
+                </div>
+                <div class="projects-grid" id="projectsGrid" aria-live="polite"><p class="projects-empty">Loading projects...</p></div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience">
+            <div class="section-inner">
+                <div class="section-label reveal">04 // PATH</div>
+                <h2 class="section-title reveal reveal-d1">EXPERIENCE <span class="accent">TIMELINE</span></h2>
+                <div class="timeline">
+                    <div class="timeline-item reveal reveal-d1">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024 — Present</div>
+                        <div class="timeline-role">Senior Full-Stack Engineer</div>
+                        <div class="timeline-company">Classified Organization</div>
+                        <div class="timeline-desc">Lead development of secure internal platforms handling sensitive data. Architected zero-trust microservice infrastructure with automated vulnerability scanning in CI/CD pipelines.</div>
+                        <div class="timeline-tags"><span>React</span><span>Go</span><span>K8s</span><span>Zero-Trust</span></div>
+                    </div>
+                    <div class="timeline-item reveal reveal-d2">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2023 — 2024</div>
+                        <div class="timeline-role">Security Engineer</div>
+                        <div class="timeline-company">ShadowNet Labs</div>
+                        <div class="timeline-desc">Conducted penetration testing on enterprise web applications. Discovered and responsibly disclosed 23 critical vulnerabilities. Built automated reconnaissance tooling.</div>
+                        <div class="timeline-tags"><span>Burp Suite</span><span>Python</span><span>OSINT</span><span>Metasploit</span></div>
+                    </div>
+                    <div class="timeline-item reveal reveal-d3">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2022 — 2023</div>
+                        <div class="timeline-role">Frontend Developer</div>
+                        <div class="timeline-company">NeonByte Studio</div>
+                        <div class="timeline-desc">Built interactive web experiences with WebGL and Canvas. Optimized rendering pipelines achieving 60fps on complex 3D scenes. Mentored junior developers.</div>
+                        <div class="timeline-tags"><span>Three.js</span><span>Vue.js</span><span>WebGL</span><span>GSAP</span></div>
+                    </div>
+                    <div class="timeline-item reveal reveal-d4">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2021 — 2022</div>
+                        <div class="timeline-role">Freelance Developer</div>
+                        <div class="timeline-company">Self-Employed</div>
+                        <div class="timeline-desc">Delivered 30+ client projects spanning e-commerce, SaaS dashboards, and landing pages. Specialized in performance optimization and SEO-first architecture.</div>
+                        <div class="timeline-tags"><span>Next.js</span><span>Node.js</span><span>PostgreSQL</span><span>Stripe</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+            <div class="section-inner">
+                <div class="section-label reveal">05 // CONNECT</div>
+                <h2 class="section-title reveal reveal-d1">GET IN <span class="accent">TOUCH</span></h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p class="reveal reveal-d1" style="font-size:0.72rem;line-height:1.9;color:rgba(0,255,156,0.55);margin-bottom:10px;">Have a project in mind, need a security audit, or just want to talk about code? I'm always open to interesting conversations.</p>
+                        <div class="contact-item reveal reveal-d2">
+                            <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+                            <div><div class="contact-item-label">Email</div><div class="contact-item-value"><a href="mailto:darkadam@proton.me">darkadam@proton.me</a></div></div>
+                        </div>
+                        <div class="contact-item reveal reveal-d3">
+                            <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                            <div><div class="contact-item-label">Location</div><div class="contact-item-value">The Matrix / Remote</div></div>
+                        </div>
+                        <div class="contact-item reveal reveal-d4">
+                            <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+                            <div><div class="contact-item-label">Website</div><div class="contact-item-value"><a href="https://adamx.com">adamx.com</a></div></div>
+                        </div>
+                        <div class="contact-socials reveal reveal-d5">
+                            <a href="https://github.com/disindu123" class="contact-social" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></a>
+                        </div>
+                    </div>
+                    <form class="contact-form reveal reveal-d2" id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-field"><label for="cName">Name</label><input type="text" id="cName" name="name" maxlength="100" autocomplete="name" placeholder="John Doe" required></div>
+                            <div class="form-field"><label for="cEmail">Email</label><input type="email" id="cEmail" name="email" maxlength="254" autocomplete="email" placeholder="john@example.com" required></div>
+                        </div>
+                        <div class="form-field"><label for="cSubject">Subject</label><input type="text" id="cSubject" name="subject" maxlength="160" placeholder="Project Inquiry"></div>
+                        <div class="form-field"><label for="cMsg">Message</label><textarea id="cMsg" name="message" minlength="10" maxlength="5000" placeholder="Tell me about your project..." required></textarea></div>
+                        <div class="hp-field" aria-hidden="true"><label for="cWebsite">Leave this empty</label><input id="cWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+                        <button type="submit" class="form-submit">SEND MESSAGE</button>
+                        <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer><p>&copy; 2026 DARK ADAM &mdash; BUILT FROM THE VOID</p></footer>
+
+        <!-- Floating Terminal -->
+        <div class="floating-term" id="floatingTerm">
+            <div class="floating-term-window" id="ftWindow">
+                <div class="ftw-head"><span>terminal</span><button class="ftw-close" id="ftClose" aria-label="Close terminal">&times;</button></div>
+                <div class="ftw-body" id="ftBody">
+                    <div><span class="out-prompt">$ </span><span class="out-cmd">welcome</span></div>
+                    <div class="out-text">Type <span class="out-cmd">help</span> for available commands.</div>
+                    <div class="out-text">&nbsp;</div>
+                </div>
+                <div class="ftw-input-wrap"><span>&gt;</span><input type="text" class="ftw-input" id="ftInput" placeholder="type a command..." autocomplete="off" spellcheck="false"></div>
+            </div>
+            <button class="floating-term-btn" id="ftBtn" aria-label="Open terminal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 17l6-6-6-6"/><path d="M12 19h8"/></svg>
+            </button>
+        </div>
+    </main>
+
+    <script type="module" src="/assets/portfolio.js"></script>
+</body>
+</html>
