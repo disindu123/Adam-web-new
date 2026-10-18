@@ -6,7 +6,7 @@ import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
-import { documentId, loginSchema, messageSchema, projectSchema, messageUpdateSchema, settingsSchema, parse } from './validation.js';
+import { documentId, loginSchema, messageSchema, projectSchema, messageUpdateSchema, settingsSchema, socialLinksSchema, parse } from './validation.js';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const publicDir = join(root, 'public');
@@ -113,6 +113,8 @@ export function createApp({ config, repository, authentication, logger = console
   });
   app.get('/api/admin/settings', async (req, res) => res.json(statusPayload(await repository.getSettings())));
   app.put('/api/admin/settings', async (req, res) => res.json(await repository.setSettings(parse(settingsSchema, req.body), req.user.uid)));
+  app.get('/api/admin/social-links', async (req, res) => res.json({ links: await repository.getSocialLinks() }));
+  app.put('/api/admin/social-links', async (req, res) => res.json({ links: await repository.setSocialLinks(parse(socialLinksSchema, req.body), req.user.uid) }));
 
   app.get(['/login', '/login/'], (req, res) => res.redirect('/login/index.html'));
   app.get('/login/index.html', (req, res) => res.sendFile(join(privateDir, 'login.html')));
@@ -126,7 +128,7 @@ export function createApp({ config, repository, authentication, logger = console
   app.get('/robots.txt', (req, res) => res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /login/\nDisallow: /admin/\nDisallow: /api/\nSitemap: ${config.origin}/sitemap.xml\n`));
   app.get('/sitemap.xml', (req, res) => res.type('application/xml').send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${escapeHtml(config.origin)}/</loc></url></urlset>`));
   app.use(async (req, res, next) => {
-    if (req.path.startsWith('/api/') && !['/api/projects', '/api/messages'].includes(req.path)) return next();
+    if (req.path.startsWith('/api/') && !['/api/projects', '/api/messages', '/api/social-links'].includes(req.path)) return next();
     const settings = await repository.getSettings();
     if (!settings.maintenanceEnabled) return next();
     if (req.method === 'GET' && req.query.preview === '1' && await authentication.verify(req.cookies[config.sessionCookie])) return next();
@@ -138,6 +140,7 @@ export function createApp({ config, repository, authentication, logger = console
     }
     res.status(503).type('html').send(page);
   });
+  app.get('/api/social-links', async (req, res) => res.json({ links: await repository.getSocialLinks() }));
   app.get('/api/projects', async (req, res) => {
     const projects = await repository.listProjects(true);
     res.json({ projects: projects.map(({ id, title, description, category, technologies, imageUrl, liveUrl, codeUrl, featured, order }) => ({ id, title, description, category, technologies, imageUrl, liveUrl, codeUrl, featured, order })) });
@@ -162,3 +165,4 @@ export function createApp({ config, repository, authentication, logger = console
   });
   return app;
 }
+

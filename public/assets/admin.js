@@ -24,16 +24,17 @@ async function loadSettings() {
   updateBadge(settings.maintenanceEnabled);
 }
 async function switchView(next) {
-  if (!['overview', 'messages', 'projects', 'maintenance'].includes(next)) return;
+  if (!['overview', 'messages', 'projects', 'social', 'maintenance'].includes(next)) return;
   view = next;
   for (const node of document.querySelectorAll('.admin-view')) node.hidden = node.id !== `view-${view}`;
   for (const button of document.querySelectorAll('[data-view]')) { const current = button.dataset.view === view; button.classList.toggle('active', current); button.setAttribute('aria-current', current ? 'page' : 'false'); }
-  $('pageHeading').textContent = { overview: 'Overview', messages: 'Messages', projects: 'Projects', maintenance: 'Maintenance' }[view];
+  $('pageHeading').textContent = { overview: 'Overview', messages: 'Messages', projects: 'Projects', social: 'Social links', maintenance: 'Maintenance' }[view];
   notify('');
   try {
     if (view === 'overview') await Promise.all([overview(), loadSettings()]);
     if (view === 'messages') await loadMessages();
     if (view === 'projects') await loadProjects();
+    if (view === 'social') await loadSocialLinks();
     if (view === 'maintenance') await loadSettings();
   } catch (error) { report(error); }
 }
@@ -146,6 +147,31 @@ $('deleteMessage').addEventListener('click', async event => {
   catch (error) { report(error); } finally { button.disabled = false; }
 });
 
+const socialKeys = ['github', 'linkedin', 'discord', 'instagram', 'telegram', 'whatsapp'];
+async function loadSocialLinks() {
+  $('socialFields').disabled = true;
+  $('socialStatus').textContent = 'Loading social links...'; $('socialStatus').className = 'form-status';
+  try {
+    const { links } = await request('/api/admin/social-links');
+    socialKeys.forEach(key => { $(`social-${key}`).value = links[key] || ''; });
+    $('socialFields').disabled = false; $('socialStatus').textContent = '';
+  } catch (error) {
+    $('socialStatus').textContent = 'Unable to load links. Use refresh to try again.';
+    $('socialStatus').className = 'form-status error'; throw error;
+  }
+}
+$('socialForm').addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!$('socialForm').reportValidity() || $('saveSocialLinks').disabled || $('socialFields').disabled) return;
+  const body = Object.fromEntries(socialKeys.map(key => [key, $(`social-${key}`).value.trim()]));
+  $('socialFields').disabled = true; $('socialStatus').textContent = 'Saving...'; $('socialStatus').className = 'form-status';
+  try {
+    await request('/api/admin/social-links', { method: 'PUT', body });
+    $('socialStatus').textContent = 'Social links saved. Reload your portfolio to use the updated links.';
+  } catch (error) { $('socialStatus').textContent = error.message; $('socialStatus').className = 'form-status error'; }
+  finally { $('socialFields').disabled = false; }
+});
+
 $('settingsForm').addEventListener('submit', async event => {
   event.preventDefault(); if (!$('settingsForm').reportValidity() || $('saveSettings').disabled) return;
   $('saveSettings').disabled = true; $('settingsStatus').textContent = 'Saving...'; $('settingsStatus').className = 'form-status';
@@ -160,3 +186,4 @@ try {
   const { user } = await request('/api/auth/session'); $('sessionEmail').textContent = user.email;
   await switchView('overview');
 } catch (error) { report(error); }
+
