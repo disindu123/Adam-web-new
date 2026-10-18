@@ -110,15 +110,17 @@ async function loadSocialLinks() {
       try {
         const candidate = new URL(links[anchor.dataset.social]);
         if (candidate.protocol === 'https:' && !candidate.username && !candidate.password) url = candidate.href;
-      } catch { /* An empty profile link leaves its icon inactive. */ }
+      } catch { /* An empty or invalid profile link keeps its icon hidden. */ }
       if (url) {
-        anchor.href = url; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer';
+        anchor.href = url; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; anchor.hidden = false;
         anchor.removeAttribute('aria-disabled'); anchor.removeAttribute('tabindex');
       } else {
         anchor.removeAttribute('href'); anchor.removeAttribute('target'); anchor.removeAttribute('rel');
-        anchor.setAttribute('aria-disabled', 'true'); anchor.tabIndex = -1;
+        anchor.setAttribute('aria-disabled', 'true'); anchor.tabIndex = -1; anchor.hidden = true;
       }
     });
+    const socialRow = document.querySelector('.contact-socials');
+    socialRow.hidden = !Array.from(socialRow.querySelectorAll('[data-social]')).some(anchor => !anchor.hidden);
   } catch (error) { if (error.status === 503) location.reload(); }
 }
 loadSocialLinks();

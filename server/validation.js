@@ -36,7 +36,7 @@ export const defaultSettings = {
 };
 
 export const defaultSocialLinks = {
-  github: 'https://github.com/disindu123', linkedin: '', discord: '',
+  github: '', linkedin: '', discord: '',
   instagram: '', telegram: '', whatsapp: ''
 };
 const socialUrl = (hosts) => webUrl.refine(value => {
