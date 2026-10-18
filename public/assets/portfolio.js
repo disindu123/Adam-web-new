@@ -101,6 +101,28 @@ document.querySelectorAll('.filter-btn').forEach(button => button.addEventListen
 }));
 loadProjects();
 
+async function loadSocialLinks() {
+  try {
+    const preview = new URLSearchParams(location.search).get('preview') === '1' ? '?preview=1' : '';
+    const { links } = await api(`/api/social-links${preview}`);
+    document.querySelectorAll('[data-social]').forEach(anchor => {
+      let url;
+      try {
+        const candidate = new URL(links[anchor.dataset.social]);
+        if (candidate.protocol === 'https:' && !candidate.username && !candidate.password) url = candidate.href;
+      } catch { /* An empty profile link leaves its icon inactive. */ }
+      if (url) {
+        anchor.href = url; anchor.target = '_blank'; anchor.rel = 'noopener noreferrer';
+        anchor.removeAttribute('aria-disabled'); anchor.removeAttribute('tabindex');
+      } else {
+        anchor.removeAttribute('href'); anchor.removeAttribute('target'); anchor.removeAttribute('rel');
+        anchor.setAttribute('aria-disabled', 'true'); anchor.tabIndex = -1;
+      }
+    });
+  } catch (error) { if (error.status === 503) location.reload(); }
+}
+loadSocialLinks();
+
 $('contactForm').addEventListener('submit', async event => {
   event.preventDefault();
   const form = event.currentTarget, status = $('formMsg'), button = form.querySelector('button[type=submit]');
@@ -150,3 +172,4 @@ setInterval(async () => {
     location.reload();
   } catch { /* Keep the current page usable during a network interruption. */ }
 }, 30000);
+

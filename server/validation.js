@@ -35,6 +35,24 @@ export const defaultSettings = {
   maintenanceUntil: ''
 };
 
+export const defaultSocialLinks = {
+  github: 'https://github.com/disindu123', linkedin: '', discord: '',
+  instagram: '', telegram: '', whatsapp: ''
+};
+const socialUrl = (hosts) => webUrl.refine(value => {
+  if (!value) return true;
+  try {
+    const hostname = new URL(value).hostname.toLowerCase();
+    return hosts.some(host => hostname === host || hostname.endsWith(`.${host}`));
+  } catch { return false; }
+}, 'Use an HTTPS profile or invite link for the selected platform.');
+export const socialLinksSchema = z.object({
+  github: socialUrl(['github.com']), linkedin: socialUrl(['linkedin.com']),
+  discord: socialUrl(['discord.com', 'discord.gg']), instagram: socialUrl(['instagram.com']),
+  telegram: socialUrl(['t.me', 'telegram.me', 'telegram.org']),
+  whatsapp: socialUrl(['wa.me', 'whatsapp.com'])
+}).strict();
+
 export function parse(schema, input) {
   const result = schema.safeParse(input);
   if (!result.success) {
@@ -44,3 +62,4 @@ export function parse(schema, input) {
   }
   return result.data;
 }
+

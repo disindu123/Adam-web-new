@@ -115,6 +115,14 @@ docker run --env-file /secure/path/adam-production.env -p 3000:3000 dark-adam
 
 The container runs as the unprivileged `node` user. Put an HTTPS reverse proxy in front of it, set the matching `SITE_URL`, and configure `TRUST_PROXY` to the actual number of trusted hops. Keep the application port private behind the proxy. To bind a different local port, also set `PORT` and update the port mapping.
 
+## Social links
+
+Sign in to the console, open **Social links**, enter your full HTTPS profile or invite URLs, and select **Save social links**. The six fields are GitHub, LinkedIn, Discord, Instagram, Telegram and WhatsApp. For WhatsApp, use `https://wa.me/` followed by your international number without the plus sign, spaces or dashes. Discord accepts a `discord.gg` invite or a `discord.com` profile link.
+
+Reload the public portfolio after saving. Configured icons open their saved destinations in a new tab; empty fields leave the matching icons inactive. No profile URLs or phone numbers are invented. Links are stored separately in `settings/social`, so changing maintenance settings does not erase them. Public reads use `/api/social-links`; writes require the same admin authorization and CSRF protection as other settings.
+
+The icons are Font Awesome Free 7.3.1 brand SVGs, served locally as `public/assets/social-icons.svg`. They use their original brand paths and aspect ratios. Attribution and licenses are included in `public/assets/THIRD_PARTY_LICENSES.txt`. No external icon service or extra runtime package is required.
+
 ## Maintenance behavior
 
 In the console, open **Maintenance**, edit the visitor text, enable the switch and select **Save settings**. The switch changes availability only after a successful save. To restore the portfolio, sign in at `/login/index.html`, turn the switch off and save again. The return time is informational and does not automatically disable maintenance.
@@ -163,3 +171,4 @@ Dockerfile          Production container
 ```
 
 The application serves only the intended public files. It never mounts the repository root as a static directory.
+

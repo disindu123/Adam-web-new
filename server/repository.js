@@ -1,5 +1,5 @@
 import { FieldValue } from 'firebase-admin/firestore';
-import { defaultSettings } from './validation.js';
+import { defaultSettings, defaultSocialLinks } from './validation.js';
 
 function serialize(doc) {
   const data = doc.data();
@@ -19,6 +19,15 @@ export class FirestoreRepository {
   async setSettings(settings, uid) {
     await this.db.doc('settings/site').set({ ...settings, updatedBy: uid, updatedAt: FieldValue.serverTimestamp() }, { merge: true });
     return settings;
+  }
+  async getSocialLinks() {
+    const doc = await this.db.doc('settings/social').get();
+    const data = doc.exists ? doc.data() : {};
+    return Object.fromEntries(Object.keys(defaultSocialLinks).map(key => [key, typeof data[key] === 'string' ? data[key] : defaultSocialLinks[key]]));
+  }
+  async setSocialLinks(links, uid) {
+    await this.db.doc('settings/social').set({ ...links, updatedBy: uid, updatedAt: FieldValue.serverTimestamp() });
+    return links;
   }
   async listProjects(publicOnly = false) {
     let query = this.db.collection('projects');
@@ -69,3 +78,4 @@ export class FirestoreRepository {
     return { projects: projects.data().count, published: published.data().count, messages: messages.data().count, unread: unread.data().count };
   }
 }
+

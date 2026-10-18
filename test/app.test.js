@@ -2,15 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import request from 'supertest';
 import { createApp } from '../server/app.js';
-import { defaultSettings } from '../server/validation.js';
+import { defaultSettings, defaultSocialLinks } from '../server/validation.js';
 
 const project = { title: 'Secure portfolio', description: 'A real project with a working backend.', category: 'web', technologies: ['Express', 'Firebase'], imageUrl: '', liveUrl: 'https://example.com', codeUrl: 'https://github.com/disindu123/Adam-web-new', published: false, featured: false, order: 0 };
 const message = { name: 'Visitor', email: 'visitor@example.com', subject: 'Project inquiry', message: 'I would like to discuss a new website.', website: '' };
 function fixture(options = {}) {
   const config = { production: false, trustProxy: 0, origin: 'http://localhost:3000', cookieSecret: 'a'.repeat(48), sessionCookie: 'adam-session', csrfCookie: 'adam-csrf', sessionDuration: 28800000, ...options.config };
-  let settings = { ...defaultSettings }, projects = [], messages = [], sequence = 0;
+  let settings = { ...defaultSettings }, socialLinks = { ...defaultSocialLinks }, projects = [], messages = [], sequence = 0;
   const repository = {
     health: async () => {}, getSettings: async () => ({ ...settings }), setSettings: async value => (settings = { ...value }),
+    getSocialLinks: async () => ({ ...socialLinks }), setSocialLinks: async value => (socialLinks = { ...value }),
     listProjects: async publicOnly => projects.filter(p => !publicOnly || p.published),
     createProject: async data => { const item = { ...data, id: `p${++sequence}`, createdBy: 'secret-admin', createdAt: '2026-10-16T12:00:00Z' }; projects.push(item); return item; },
     updateProject: async (id, data) => { const index = projects.findIndex(p => p.id === id); if (index < 0) return null; return projects[index] = { ...projects[index], ...data }; },
@@ -179,4 +180,45 @@ test('production cookies use the Secure flag and host-scoped names', async () =>
   const cookie = csrfResponse.headers['set-cookie'][0].split(';')[0];
   const login = await request(app).post('/api/auth/login').set('Cookie', cookie).set('X-CSRF-Token', csrfResponse.body.token).send({ email: 'admin@example.com', password: 'correct-password' }).expect(200);
   assert.match(login.headers['set-cookie'][0], /__Host-adam-session=/); assert.match(login.headers['set-cookie'][0], /Secure/);
+});
+
+
+test('social links are editable only by admins and published to the portfolio', async () => {
+  const { app } = fixture(), visitor = await client(app), admin = await client(app, true);
+  await visitor.agent.get('/api/admin/social-links').expect(401);
+  await visitor.send('put', '/api/admin/social-links', defaultSocialLinks).expect(401);
+  const links = { github: 'https://github.com/disindu123', linkedin: 'https://www.linkedin.com/in/example/', discord: 'https://discord.gg/example', instagram: 'https://www.instagram.com/example/', telegram: 'https://t.me/example', whatsapp: 'https://wa.me/94770000000' };
+  const saved = await admin.send('put', '/api/admin/social-links', links).expect(200);
+  assert.deepEqual(saved.body.links, links);
+  assert.deepEqual((await admin.agent.get('/api/admin/social-links').expect(200)).body.links, links);
+  assert.deepEqual((await visitor.agent.get('/api/social-links').expect(200)).body.links, links);
+  const publicHtml = (await visitor.agent.get('/').expect(200)).text;
+  for (const key of Object.keys(links)) assert.match(publicHtml, new RegExp(`data-social="${key}"`));
+  await visitor.agent.get('/assets/social-icons.svg').expect(200).expect('Content-Type', /svg/);
+  // Saving maintenance settings never erases links stored in their separate document.
+  await admin.send('put', '/api/admin/settings', defaultSettings).expect(200);
+  assert.deepEqual((await visitor.agent.get('/api/social-links').expect(200)).body.links, links);
+  await admin.send('put', '/api/admin/social-links', { ...links, whatsapp: '' }).expect(200);
+  assert.equal((await visitor.agent.get('/api/social-links').expect(200)).body.links.whatsapp, '');
+});
+
+test('social link validation rejects unsafe URLs and wrong platform domains', async () => {
+  const { app } = fixture(), admin = await client(app, true);
+  const invalid = [
+    { linkedin: 'javascript:alert(1)' }, { discord: 'http://discord.gg/example' },
+    { instagram: 'https://instagram.com.attacker.example/profile' },
+    { telegram: 'https://example.com/' }, { whatsapp: 'https://wa.me@attacker.example/' },
+    { github: 'https://user:password@github.com/example' }, { unsupported: 'https://example.com' }
+  ];
+  for (const bad of invalid) await admin.send('put', '/api/admin/social-links', { ...defaultSocialLinks, ...bad }).expect(400);
+  assert.deepEqual((await admin.agent.get('/api/admin/social-links').expect(200)).body.links, defaultSocialLinks);
+});
+
+test('social profile links follow maintenance gating and authenticated previews', async () => {
+  const { app } = fixture(), visitor = await client(app), admin = await client(app, true);
+  await admin.send('put', '/api/admin/settings', { ...defaultSettings, maintenanceEnabled: true }).expect(200);
+  await visitor.agent.get('/api/social-links').expect(503);
+  await visitor.agent.get('/api/social-links?preview=1').expect(503);
+  await admin.agent.get('/api/social-links?preview=1').expect(200);
+  await admin.agent.get('/api/admin/social-links').expect(200);
 });
