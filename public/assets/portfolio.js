@@ -46,12 +46,47 @@ const reveals = new IntersectionObserver(entries => entries.forEach(({ target, i
 document.querySelectorAll('.reveal').forEach(node => reveals.observe(node));
 const navObserver = new IntersectionObserver(entries => entries.forEach(entry => {
   if (!entry.isIntersecting) return;
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.hash === `#${entry.target.id}`));
-}), { threshold: .35 });
+  document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(anchor => {
+    const active = anchor.hash === `#${entry.target.id}`;
+    anchor.classList.toggle('active', active);
+    if (active) anchor.setAttribute('aria-current', 'location');
+    else anchor.removeAttribute('aria-current');
+  });
+}), { threshold: 0, rootMargin: '-15% 0px -65% 0px' });
 document.querySelectorAll('section').forEach(section => navObserver.observe(section));
 function closeMenu() { $('hamburger').classList.remove('open'); $('mobileNav').classList.remove('open'); $('hamburger').setAttribute('aria-expanded', 'false'); }
 $('hamburger').addEventListener('click', () => { const open = $('hamburger').getAttribute('aria-expanded') !== 'true'; $('hamburger').classList.toggle('open', open); $('mobileNav').classList.toggle('open', open); $('hamburger').setAttribute('aria-expanded', String(open)); });
-document.querySelectorAll('.nav-mobile a').forEach(a => a.addEventListener('click', closeMenu));
+// Keep real fragment links as a no-JavaScript fallback, but section clicks
+// scroll in place without changing the current path, query string or history.
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  const target = document.getElementById(anchor.getAttribute('href').slice(1));
+  if (!target) return;
+  anchor.addEventListener('click', event => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    closeMenu();
+    const focusTarget = target.querySelector('.section-title, .hero-name') || target;
+    if (!focusTarget.hasAttribute('tabindex')) {
+      focusTarget.setAttribute('tabindex', '-1');
+      focusTarget.addEventListener('blur', () => focusTarget.removeAttribute('tabindex'), { once: true });
+    }
+    focusTarget.focus({ preventScroll: true });
+    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+    if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+  });
+});
+// Honor an incoming section link, then leave a clean address in the URL bar.
+if (location.hash) {
+  const initialSection = document.getElementById(location.hash.slice(1));
+  if (initialSection?.matches('section')) {
+    initialSection.scrollIntoView({ behavior: 'instant', block: 'start' });
+    history.replaceState(history.state, '', location.pathname + location.search);
+  }
+}
+document.addEventListener('click', event => {
+  if ($('mobileNav').classList.contains('open') && !event.target.closest('.nav, .nav-mobile')) closeMenu();
+});
+window.addEventListener('resize', () => { if (innerWidth > 768) closeMenu(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); $('ftWindow').classList.remove('open'); } });
 document.querySelectorAll('.hero-stat-num').forEach(node => {
   const target = Number(node.dataset.count), start = performance.now();
