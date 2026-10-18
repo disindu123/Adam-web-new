@@ -125,7 +125,7 @@ const commands = {
   whoami: () => output('visitor@dark_adam:~$'),
   uptime: () => output(`Session uptime: ${Math.floor(performance.now() / 60000)}m ${Math.floor(performance.now() / 1000) % 60}s`),
   clear: () => terminalBody.replaceChildren(),
-  matrix: () => { canvas.style.opacity = canvas.style.opacity === '0.7' ? '0.35' : '0.7'; output('Matrix density toggled.'); },
+  matrix: () => { canvas.style.opacity = canvas.style.opacity === '0.18' ? '0.12' : '0.18'; output('Matrix brightness toggled.'); },
   exit: () => $('ftWindow').classList.remove('open')
 };
 terminalBody.style.whiteSpace = 'pre-wrap';
