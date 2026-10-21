@@ -29,3 +29,13 @@ button:focus-visible, a:focus-visible {
     outline-offset: 3px;
     box-shadow: none;
 }
+
+/* A gentle motion for the maintenance emblem; the image stays visible while loading. */
+.maintenance-symbol { animation: maintenance-logo-float 5s ease-in-out infinite; }
+@keyframes maintenance-logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .maintenance-symbol { animation: none; transform: none; }
+}
