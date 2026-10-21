@@ -82,7 +82,7 @@
         .lt-ip{color:var(--g);font-size:0.85rem;margin-right:5px;user-select:none;opacity:0.5;transition:opacity 0.3s;}
         .lt-ig:focus-within .lt-ip{opacity:1;}
         .lt-iw input{flex:1;background:transparent;color:var(--g);border:1px solid rgba(0,255,156,0.12);padding:10px 12px;font-size:0.82rem;font-family:'JetBrains Mono',monospace;border-radius:4px;outline:none;transition:all 0.3s;caret-color:var(--g);}
-        .lt-iw input:focus{border-color:rgba(0,255,156,0.45);box-shadow:0 0 12px rgba(0,255,156,0.06);}
+        .lt-iw input:focus{border-color:#61786d;box-shadow:none;}
         .lt-iw input::placeholder{color:rgba(0,255,156,0.15);font-style:italic;}
         .lt-btn{width:100%;padding:12px;margin-top:4px;background:transparent;color:var(--g);border:1px solid rgba(0,255,156,0.45);font-size:0.78rem;font-family:'JetBrains Mono',monospace;font-weight:600;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:4px;position:relative;overflow:hidden;transition:all 0.3s;}
         .lt-btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,156,0.06),transparent);transition:left 0.5s;}
@@ -324,7 +324,7 @@
             border-radius:4px;outline:none;transition:all 0.3s;
             caret-color:var(--g);resize:vertical;
         }
-        .form-field input:focus,.form-field textarea:focus{border-color:rgba(0,255,156,0.4);box-shadow:0 0 15px rgba(0,255,156,0.05);}
+        .form-field input:focus,.form-field textarea:focus{border-color:#61786d;box-shadow:none;}
         .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(0,255,156,0.15);font-style:italic;}
         .form-field textarea{min-height:120px;}
         .form-submit{
@@ -406,7 +406,7 @@
 .projects-empty{grid-column:1/-1;padding:36px;border:1px solid var(--border);border-radius:8px;color:var(--gd);font-size:.75rem;line-height:1.8}
 .project-card[hidden]{display:none}.project-link[aria-disabled=true]{opacity:.3;pointer-events:none}
 .skip-link{position:fixed;top:-60px;left:15px;z-index:20000;padding:12px;background:var(--g);color:#000}.skip-link:focus{top:12px}
-button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:1px solid #61786d;outline-offset:3px}
 .nav-hamburger{border:0;background:none}.nav-mobile{z-index:999}.contact-form textarea{min-height:140px}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.reveal{opacity:1;transform:none}.cursor-dot,.cursor-ring{display:none}#matrix{opacity:.06}}
 
@@ -428,4 +428,18 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{
     .section-inner { overflow-wrap: anywhere; }
     .about-term-body, .ftw-body { overflow-wrap: anywhere; }
     .contact-form input, .contact-form textarea { min-width: 0; max-width: 100%; }
+}
+
+/* Quiet focus styling on touch, mouse and keyboard across all screen sizes. */
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+input:focus, textarea:focus, select:focus,
+input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: none;
+    box-shadow: none;
+    border-color: #61786d;
+}
+button:focus-visible, a:focus-visible {
+    outline: 1px solid #61786d;
+    outline-offset: 3px;
+    box-shadow: none;
 }
